@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Hearts</title>
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous" defer></script>
+    <script src="scripts/engine.js" defer></script>
+</head>
+<body>
+    <main>
+        <div id="container">
+            <div id="starting-options">
+                <form action="/" method="POST">
+                    <h1>Customizable Hearts</h1>
+                    <div class="form-group">
+                        <label for="player-name-0">Player 1's name:</label>
+                        <input type="text" id="player-name-0" name="player-name-0" placeholder="Player 1">
+                    </div>
+                    <div class="form-group">
+                        <label for="player-name-1">Player 2's name:</label>
+                        <input type="text" id="player-name-1" name="player-name-1" placeholder="Player 2">
+                    </div>
+                    <div class="form-group">
+                        <label for="player-name-2">Player 3's name:</label>
+                        <input type="text" id="player-name-2" name="player-name-2" placeholder="Player 3">
+                    </div>
+                    <div class="form-group">
+                        <label for="player-name-3">Player 4's name:</label>
+                        <input type="text" id="player-name-3" name="player-name-3" placeholder="Player 4">
+                    </div>
+                    <div class="form-group">
+                        <label for="target-score">Play until:</label>
+                        <input type="number" id="target-score" name="target-score" placeholder="50" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="black-lady"><span class="spades">Q&#x2660;</span> worth +13 points:</label>
+                        <input type="checkbox" id="black-lady" name="black-lady" checked>
+                    </div>
+                    <div class="form-group">
+                        <label for="jack-of-diamonds-variation"><span class="diamonds">J&#x2666;</span> worth -10 points:</label>
+                        <input type="checkbox" id="jack-of-diamonds-variation" name="jack-of-diamonds-variation">
+                    </div>
+                    <div class="form-group">
+                        <label for="dj-the-moon">Require <span class="diamonds">J&#x2666;</span> to shoot the moon:</label>
+                        <input type="checkbox" id="dj-the-moon" name="dj-the-moon">
+                    </div>
+                    <div class="form-group">
+                        <label for="shooting-the-moon">Shooting the moon:</label>
+                        <input type="checkbox" id="shooting-the-moon" name="shooting-the-moon" checked>
+                    </div>
+                    <div class="form-group">
+                        <label for="shooting-the-sun">Shooting the sun:</label>
+                        <input type="checkbox" id="shooting-the-sun" name="shooting-the-sun">
+                    </div>
+                    <div class="form-group">
+                        <p>Shoot the new moon/sun:</p>
+                        <select name="new-moon" id="new-moon">
+                            <option value="always">Always</option>
+                            <option value="never" selected>Never</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="computer-opponents">Computer opponents (single-player):</label>
+                        <input type="checkbox" id="computer-opponents" name="computer-opponents" checked>
+                    </div>
+                    <div class="form-group">
+                        <label for="cards-visible">All cards visible:</label>
+                        <input type="checkbox" id="cards-visible" name="cards-visible">
+                    </div>
+                    <input type="submit" value="Start Game">
+                </form>
+            </div>
+            
+            <div id="gameboard">
+                <div id="table">
+                </div>
+                <div id="previous-trick-wrapper">
+                    <p>Previous Trick:</p>
+                    <div id="previous-trick">
+                    </div>
+                </div>
+                <div id="hand-0" class="hand">
+                </div>
+                <div id="hand-1" class="hand">
+                </div>
+                <div id="hand-2" class="hand">
+                </div>
+                <div id="hand-3" class="hand">
+                </div>
+
+                <div id="score-0" class="score">
+                    <p class="player-name">Player 1: </p>
+                    <p class="old-score">0</p>
+                    <p class="new-score"></p>
+                    <p class="score-change"></p>
+                </div>
+                <div id="score-1" class="score">
+                    <p class="player-name">Player 2: </p>
+                    <p class="old-score">0</p>
+                    <p class="new-score"></p>
+                    <p class="score-change"></p>
+                </div>
+                <div id="score-2" class="score">
+                    <p class="player-name">Player 3: </p>
+                    <p class="old-score">0</p>
+                    <p class="new-score"></p>
+                    <p class="score-change"></p>
+                </div>
+                <div id="score-3" class="score">
+                    <p class="player-name">Player 4: </p>
+                    <p class="old-score">0</p>
+                    <p class="new-score"></p>
+                    <p class="score-change"></p>
+                </div>
+
+                <button class="resign" style="display: none;">Resign</button>
+                <button class="info">Info</button>
+            </div>
+
+            <div id="end-screen" style="display: none;">
+                <p></p>
+                <button class="same">Play again with same rules.</button>
+                <button class="new">Play again with new rules.</button>
+            </div>
+
+            <div id="info-screen" style="display: none;">
+                <h2>Info</h2>
+                <p>Customizable Hearts is the classic card game "Hearts" where you can choose which variants of Hearts you would like to play. A list of rules and variants can be found <a href="https://www.pagat.com/reverse/hearts.html" target="_blank" rel="noopener noreferrer">here.</a></p>
+                <p>More variants will be implemented in the future.</p>
+                <p>Customizable Hearts was developed by Rui Zhai.</p>
+                <button class="close">X</button>
+            </div>
+        </div>
+        <audio class="card-sound" src="audio/card-sound.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-1.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-2.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-3.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-4.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-5.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-6.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-7.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-8.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-9.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-10.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-11.mp4" preload="auto"></audio>
+        <audio class="card-sound" src="audio/card-sound-12.mp4" preload="auto"></audio>
+    </main>
+</body>
+</html>
